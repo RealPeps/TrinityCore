@@ -27319,6 +27319,7 @@ void Player::SetRestFlag(RestFlag restFlag, uint32 triggerId /*= 0*/)
     {
         _restTime = GameTime::GetGameTime();
         SetFlag(PLAYER_FLAGS, PLAYER_FLAGS_RESTING);
+        FIRE(Player, OnRestFlagChanged, TSPlayer(this), true);
     }
 
     if (triggerId)
@@ -27334,6 +27335,7 @@ void Player::RemoveRestFlag(RestFlag restFlag)
     {
         _restTime = 0;
         RemoveFlag(PLAYER_FLAGS, PLAYER_FLAGS_RESTING);
+        FIRE(Player, OnRestFlagChanged, TSPlayer(this), false);
     }
 }
 
