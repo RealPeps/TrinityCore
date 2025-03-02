@@ -22305,6 +22305,7 @@ void Player::UpdatePvPState(bool onlyFFA)
 
 void Player::SetPvP(bool state)
 {
+    FIRE(Player, OnSetPvP, TSPlayer(this), state)
     Unit::SetPvP(state);
     for (ControlList::iterator itr = m_Controlled.begin(); itr != m_Controlled.end(); ++itr)
         (*itr)->SetPvP(state);
