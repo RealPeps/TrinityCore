@@ -471,9 +471,9 @@ bool Group::AddMember(Player* player)
         // including raid/heroic instances that they are not permanently bound to!
         player->ResetInstances(INSTANCE_RESET_GROUP_JOIN, false);
         player->ResetInstances(INSTANCE_RESET_GROUP_JOIN, true);
-
-        if (player->GetLevel() >= LEVELREQUIREMENT_HEROIC)
-        {
+        // @tswow-begin ASTREA
+        //if (player->GetLevel() >= LEVELREQUIREMENT_HEROIC)
+        //{
             if (player->GetDungeonDifficulty() != GetDungeonDifficulty())
             {
                 player->SetDungeonDifficulty(GetDungeonDifficulty());
@@ -484,7 +484,8 @@ bool Group::AddMember(Player* player)
                 player->SetRaidDifficulty(GetRaidDifficulty());
                 player->SendRaidDifficulty(true);
             }
-        }
+        //}
+        // @tswow-end ASTREA
     }
     player->SetGroupUpdateFlag(GROUP_UPDATE_FULL);
     UpdatePlayerOutOfRange(player);
@@ -2207,9 +2208,12 @@ void Group::ResetInstances(uint8 method, bool isRaid, Player* SendMsgTo)
 
         if (method == INSTANCE_RESET_ALL)
         {
+            // @tswow-begin ASTREA (Enable resetting heroic instances)
             // the "reset all instances" method can only reset normal maps
-            if (entry->InstanceType == MAP_RAID || diff == DUNGEON_DIFFICULTY_HEROIC)
+            //if (entry->InstanceType == MAP_RAID || diff == DUNGEON_DIFFICULTY_HEROIC)
+            if (entry->InstanceType == MAP_RAID)
             {
+            // @tswow-end ASTREA
                 ++itr;
                 continue;
             }

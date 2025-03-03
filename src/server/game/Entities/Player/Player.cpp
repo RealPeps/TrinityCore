@@ -20758,9 +20758,12 @@ void Player::ResetInstances(uint8 method, bool isRaid)
 
         if (method == INSTANCE_RESET_ALL)
         {
+            // @tswow-begin ASTREA (Enable resetting heroic instances)
             // the "reset all instances" method can only reset normal maps
-            if (entry->InstanceType == MAP_RAID || diff == DUNGEON_DIFFICULTY_HEROIC)
+            //if (entry->InstanceType == MAP_RAID || diff == DUNGEON_DIFFICULTY_HEROIC)
+            if (entry->InstanceType == MAP_RAID)
             {
+            // @tswow-end ASTREA
                 ++itr;
                 continue;
             }
